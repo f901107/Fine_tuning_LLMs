@@ -32,3 +32,9 @@ Meta 最新 (2023/07) 的 LLM 模型，Llama 2.0 展示了一系列預訓練和�
 在自己的數據集上微調語言模型是有潛力的。然而，這個過程經常需要大量的 GPU 記憶體( video RAM, vRAM)，且可能是一項資源密集型的工作。例如，微調一個有 650 億參數的模型需要 780 GB GPU 記憶體，相當於十個A100 80 GB GPUs。這種資源需求已經超出一般大眾的財力範圍。
 
 EJ Hu 在2021年提出的 LoRA： Low-Rank Adaptation of Large Language Models。LoRA 的架構涉及凍結預訓練模型 Transformer 的權重，並在矩陣中訓練額外的權重變化，而不犧牲關鍵資訊。
+
+## Efficient Finetuning of Quantized LLMs (QLoRA)
+
+4-bit NormalFloat Quantization: QLoRA 引入了一種新的量化方法，該方法改進了傳統的分位數量化。這些技術對於節省記憶體而不降低性能至關重要，使得在深度學習模型微調中更容易使用 4 位量化。它被設計用於對常態分佈的數據進行量化。這種數據類型可以在維持 16 位性能水平的同時，減少記憶體使用。因此，它可以在保持性能的同時降低記憶體占用，這對於在有限的硬體資源上進行深度學習模型的訓練和微調非常有用。簡單來說是把量化資料進行壓縮。
+Double Quantization: QLoRA 更進一步量化常數，節省了更多的記憶體。這種巧妙的方法壓縮了模型資訊，同時保持了整體性能。
+Paging with Unified Memory: 利用 NVIDIA Unified Memory 功能，QLoRA 實現了 CPU 和 GPU 之間無縫的頁到頁傳輸。這種智能的記憶體管理確保了 GPU 處理過程中無錯誤，即使在 GPU 面臨記憶體限制的情況下也是如此。
